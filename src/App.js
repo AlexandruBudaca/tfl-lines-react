@@ -1,24 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
 
 function App() {
+  const [data, setData] = useState([]);
+  const [modeName, setModeName] = useState("");
+  const [err, setErr] = useState(false);
+
+  useEffect(() => {
+    fetch("https://api.tfl.gov.uk/Line/Meta/Modes")
+      .then((response) => response.json())
+      .then((data) => setData(data))
+      .catch((err) => setErr(err));
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <header className="App-header"></header>
+      {err && <div>404</div>}
+      <div className="select-mode">
+        <select
+          defaultValue="default"
+          onChange={(e) => {
+            setModeName(e.target.value);
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          <option value="default" disabled>
+            Select mode
+          </option>
+          {data.map((mode, index) => (
+            <option key={index} value={mode.modeName}>
+              {mode.modeName}
+            </option>
+          ))}
+        </select>
+        <h4>You selected mode: {modeName}</h4>
+      </div>
     </div>
   );
 }
