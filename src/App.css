@@ -4,6 +4,7 @@
 
 .App-header {
   min-height: 100px;
+  flex-wrap: wrap;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,11 +14,17 @@
 }
 
 .select-mode select {
-  background-color: DodgerBlue;
+  background-color: whitesmoke;
   border: none;
-  padding: 10px;
-  width: 200px;
-  color: whitesmoke;
+  padding: 15px;
+  width: 60%;
+  color: #333;
   font-weight: 600;
-  outline: none
+  outline: none;
+  font-size: 15px;
+  border: 1px solid #333;
+}
+
+select:focus>option:checked {
+  background: #000 !important;
 }
