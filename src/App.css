@@ -16,6 +16,7 @@
 }
 
 .content {
+
   min-height: calc(100vh - 200px);
 }
 
@@ -29,6 +30,8 @@
   font-size: 15px;
   border: 1px solid #333;
 }
+
+
 
 .destination {
   display: flex;
@@ -81,4 +84,15 @@
     width: 350px;
     height: 150px;
   }
+
+
+}
+
+@media (max-width:7680px) {
+  .destination img {
+    display: none;
+  }
+
+
+
 }
