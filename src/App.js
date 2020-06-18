@@ -12,7 +12,6 @@ function App() {
   const [singleModeData, setSingleData] = useState([]);
   const [optionLine, setOptionLine] = useState("");
   const [destination, setDestination] = useState([]);
-  const [loaded, setLoaded] = useState(false);
   const fetchData = (url, set) => {
     fetch(url)
       .then((response) => response.json())
@@ -22,13 +21,11 @@ function App() {
 
   useEffect(() => {
     if (optionLine === "") {
-      setLoaded(true);
     } else {
       fetchData(
         "https://api.tfl.gov.uk/Line/" + optionLine + "/Route",
         setDestination
       );
-      setLoaded(false);
     }
     fetchData("https://api.tfl.gov.uk/Line/Meta/Modes", setData);
     if (modesName === "") {
