@@ -1,12 +1,20 @@
 import React from "react";
 
-const SelectMode = ({ data, modesName, handleSelectValue, setModesName }) => {
+const SelectMode = ({
+  data,
+  handleSelectValue,
+  setModesName,
+  setOptionLine,
+  setDestination,
+}) => {
   return (
     <div className="select-mode">
       <select
         defaultValue="default"
         onChange={(e) => {
           handleSelectValue(e, setModesName);
+          setOptionLine("");
+          setDestination([]);
         }}
       >
         <option value="default" disabled>

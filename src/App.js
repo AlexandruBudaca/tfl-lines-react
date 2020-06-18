@@ -47,6 +47,8 @@ function App() {
         modesName={modesName}
         handleSelectValue={handleSelectValue}
         setModesName={setModesName}
+        setOptionLine={setOptionLine}
+        setDestination={setDestination}
       />
 
       {singleModeData.length === 0 ? (
@@ -59,9 +61,7 @@ function App() {
               handleSelectValue(e, setOptionLine);
             }}
           >
-            <option value="default" disabled>
-              Select line
-            </option>
+            <option value="default">Select line</option>
 
             {singleModeData.map((transport) => (
               <option value={transport.name} key={transport.id}>
@@ -74,7 +74,7 @@ function App() {
       {destination.length === 0 ? (
         ""
       ) : (
-        <RouteDestination destination={destination} />
+        <RouteDestination destination={destination} err={err} />
       )}
     </div>
   );
