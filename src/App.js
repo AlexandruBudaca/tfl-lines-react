@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import SelectMode from "./SelectMode";
+import SelectLine from "./SelectLine";
 import RouteDestination from "./RouteDestination";
+import ShowModeAndOption from "./ShowModeAndOption";
 import "./App.css";
 
 function App() {
@@ -10,7 +12,7 @@ function App() {
   const [singleModeData, setSingleData] = useState([]);
   const [optionLine, setOptionLine] = useState("");
   const [destination, setDestination] = useState([]);
-
+  const [loaded, setLoaded] = useState(false);
   const fetchData = (url, set) => {
     fetch(url)
       .then((response) => response.json())
@@ -20,11 +22,13 @@ function App() {
 
   useEffect(() => {
     if (optionLine === "") {
+      setLoaded(true);
     } else {
       fetchData(
         "https://api.tfl.gov.uk/Line/" + optionLine + "/Route",
         setDestination
       );
+      setLoaded(false);
     }
     fetchData("https://api.tfl.gov.uk/Line/Meta/Modes", setData);
     if (modesName === "") {
@@ -39,43 +43,48 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header"></header>
-      {err && <div>404</div>}
+      <header className="App-header"> Transport for London</header>
+      <div className="content">
+        {err && <div>404</div>}
 
-      <SelectMode
-        data={data}
-        modesName={modesName}
-        handleSelectValue={handleSelectValue}
-        setModesName={setModesName}
-        setOptionLine={setOptionLine}
-        setDestination={setDestination}
-      />
+        <SelectMode
+          data={data}
+          modesName={modesName}
+          handleSelectValue={handleSelectValue}
+          setModesName={setModesName}
+          setOptionLine={setOptionLine}
+          setDestination={setDestination}
+        />
+        <br />
+        <SelectLine
+          singleModeData={singleModeData}
+          handleSelectValue={handleSelectValue}
+          setOptionLine={setOptionLine}
+        />
 
-      {singleModeData.length === 0 ? (
-        ""
-      ) : (
-        <div className="select-mode">
-          <select
-            defaultValue="default"
-            onChange={(e) => {
-              handleSelectValue(e, setOptionLine);
-            }}
-          >
-            <option value="default">Select line</option>
+        <br />
+        <ShowModeAndOption optionLine={optionLine} modesName={modesName} />
 
-            {singleModeData.map((transport) => (
-              <option value={transport.name} key={transport.id}>
-                {transport.name}
-              </option>
-            ))}
-          </select>
+        <br />
+
+        <div>
+          {destination.length === 0 ? (
+            ""
+          ) : (
+            <RouteDestination destination={destination} err={err} />
+          )}
         </div>
-      )}
-      {destination.length === 0 ? (
-        ""
-      ) : (
-        <RouteDestination destination={destination} err={err} />
-      )}
+      </div>
+      <footer className="attribution">
+        <a
+          href="https://codeyourfuture.io/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          CodeYourFuture
+        </a>
+        . Coded by Alexandru Budaca.
+      </footer>
     </div>
   );
 }

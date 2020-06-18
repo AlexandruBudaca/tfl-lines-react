@@ -3,7 +3,8 @@
 }
 
 .App-header {
-  min-height: 100px;
+  background-color: darkblue;
+  min-height: 80px;
   flex-wrap: wrap;
   display: flex;
   flex-direction: column;
@@ -11,10 +12,14 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  margin-bottom: 50px;
+}
+
+.content {
+  min-height: calc(100vh - 200px);
 }
 
 .select-mode select {
-  background-color: whitesmoke;
   border: none;
   padding: 15px;
   width: 60%;
@@ -25,6 +30,55 @@
   border: 1px solid #333;
 }
 
-select:focus>option:checked {
-  background: #000 !important;
+.destination {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.destination-route {
+  width: 400px;
+  height: 150px;
+  background-color: darkblue;
+  color: whitesmoke;
+  font-weight: 600;
+  margin: 20px;
+  border-radius: 20px;
+
+}
+
+.destination-route h4 {
+  margin-top: 18%;
+}
+
+.destination-route div {
+  margin: 30px;
+
+}
+
+.destination-point {
+  text-align: left;
+}
+
+.destination img {
+  width: 20px;
+  height: 20px;
+}
+
+.attribution a {
+  height: 50px;
+  color: darkblue
+}
+
+@media (max-width:500px) {
+  .destination img {
+    display: none;
+  }
+
+  .destination-route {
+    width: 350px;
+    height: 150px;
+  }
 }
